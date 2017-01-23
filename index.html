@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>gb-final</title>
+    <link href="assets/css/normalize.css" rel="stylesheet" type="text/css">
+    <link href="assets/css/default.min.css" rel="stylesheet" type="text/css">
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/marked.js"></script>
+    <script src="assets/js/highlight.min.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div>
+        <textarea id="text-input" placeholder="正文" oninput="this.editor.update()" style="">
+# gb-final
+## on server 120.55.90.62
+
+
+
+# 1.chatroom
+## git clone https://github.com/sunrain990/gb-chat
+## cd /home/sunrain990/github/gb-chat
+## start: pm2 start chat-app.js
+## stop: pm2 stop chat-app.js (或者利用pm2 list 查看id，然后pm2 start id)
+## info: redis为本机的6380数据库13。
+
+
+
+# 2.exam
+## git clone https://github.com/sunrain990/gb-exam
+## cd /home/sunrain990/github/gb-exam
+## start: pm2 start exam-app.js
+## stop: pm2 stop exam-app.js (或者利用pm2 list 查看id，然后pm2 start id)
+## info: 本地mongodb
+### mongo启动：mongod -f /data/conf/mongo.conf
+### 每天自动备份在：/data/backup/ （可能空间会变很大要维护）
+
+
+
+# 3.filesite
+## git clone https://github.com/sunrain990/gb-filesite
+## cd /home/sunrain990/github/gb-filesite
+## start: pm2 start filesite-app.js
+## stop: pm2 stop filesite-app.js (或者利用pm2 list 查看id，然后pm2 start id)
+## info: 七牛云存储
+
+
+
+# 4.gemview
+## git clone https://github.com/sunrain990/gemview
+## cd /home/sunrain990/github/gemview
+## start: pm2 start gemview-app.js
+## stop: pm2 stop gemview-app.js (或者利用pm2 list 查看id，然后pm2 start id)
+## info: 一个统计网站，whatever
+
+
+
+# 5.questionnaire
+## git clone https://github.com/sunrain990/gb-questionnaire
+## cd /home/sunrain990/github/gb-questionnaire
+## start: pm2 start bin/questionnaire-www
+## stop: pm2 stop bin/questionnaire-www (或者利用pm2 list 查看id，然后pm2 start id)
+## info: 问卷调查，终于不再找我了。
+
+
+
+# 6.tx-dx
+## git clone https://github.com/bc-robot/tx-dx   (git clone git@bc-robot:bc-robot/tx-dx 在~/.ssh/config中配置了,默认是sunrain990账户)
+## cd /home/sunrain990/bc-robot/tx-dx
+## start: pm2 start back/tx-dx.js
+## stop: pm2 stop back/tx-dx.js (或者利用pm2 list 查看id，然后pm2 start id)
+## info: 腾讯短信接口，神马？想改appid？ cd /home/sunrain990/bc-robot/gb-secrets/gb-dx.js。
+
+
+
+# 7.judgement(判题系统)
+## git clone https://github.com/sunrain990/gb-judge-homework
+## cd /home/sunrain990/github/gb-judge-homework
+## start: pm2 start back/koa.js
+## stop: pm2 stop back/koa.js (或者利用pm2 list 查看id，然后pm2 start id)
+## info: 接口对接判题系统。
+
+
+
+# 说到判题系统！。。。
+ root@121.40.51.192
+ docker ps -a  一目了然
+ docker inspect id
+ docker images    and so on ...
+ 前端项目都在web里面。
+        </textarea>
+    </div>
+    <div id="divMarkDownHtml">
+        <div id="preview"></div>
+    </div>
+
+    <script>
+        var renderer_zai30 = new marked.Renderer();
+        marked.setOptions({
+            renderer: renderer_zai30,
+            gfm: true,
+            tables: true,
+            breaks: true,
+            pedantic: false,
+            sanitize: true,
+            smartLists: true,
+            smartypants: false
+        });
+
+        function Editor(input, preview) {
+            this.update = function() {
+                preview.innerHTML = marked(input.value);
+            }
+            input.editor = this;
+            this.update();
+        }
+
+        var $markdown = function (id) {
+            return document.getElementById(id);
+        };
+        new Editor($markdown("text-input"), $markdown("preview"));
+    </script>
+</body>
+</html>
